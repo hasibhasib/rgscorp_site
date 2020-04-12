@@ -1,0 +1,237 @@
+<!doctype html>
+{% load static %}
+{% static 'images' as baseUrl %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <meta charset="UTF-8">
+    <title>Chamb - Responsive E-commerce HTML5 Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--enable mobile device-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--fontawesome css-->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!--animate css-->
+    <link rel="stylesheet" href="{% static 'css/animate-wow.css' %}">
+    <!--main css-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'ss/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <!--responsive css-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+
+    <title>RGS Corp</title>
+</head>
+<body>
+
+<div class="nav_wrapper">
+    <div class="navigation_wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'home:home' %}">RGS Corp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Product category
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for cats in p_categories %}
+                            <a class="dropdown-item" href="{% url 'products:category_list' slug=cats.slug %}">{{ cats.category_name }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
+                    </li>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'contact_us:contact' %}">Contact Us <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="product-page-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="prod-page-title" align="center">
+                    <h2>{{detail_product.product_name}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-6">
+                <div class="md-prod-page">
+                    <div class="md-prod-page-in">
+                        <div class="page-preview">
+                            <div class="preview">
+                                <div class="preview-pic tab-content">
+                                    <div class="tab-pane active" id="pic-1"><img
+                                            src="{{ detail_product.product_picture_main.url }}"
+                                            alt="#"/></div>
+                                    <div class="tab-pane" id="pic-2"><img
+                                            src="{{ detail_product.product_picture_2.url }}"
+                                            alt="#"/></div>
+                                    <div class="tab-pane" id="pic-3"><img
+                                            src="{{ detail_product.product_picture_3.url }}"
+                                            alt="#"/></div>
+                                    <div class="tab-pane" id="pic-4"><img
+                                            src="{{ detail_product.product_picture_4.url }}"
+                                            alt="#"/></div>
+                                </div>
+                                <ul class="preview-thumbnail nav nav-tabs">
+                                    <li class="active"><a data-target="#pic-1" data-toggle="tab"><img
+                                            src="{{ detail_product.product_picture_main.url }}" alt="#"/></a></li>
+                                    <li><a data-target="#pic-2" data-toggle="tab"><img
+                                            src="{{ detail_product.product_picture_2.url }}" alt="#"/></a></li>
+                                    <li><a data-target="#pic-3" data-toggle="tab"><img
+                                            src="{{ detail_product.product_picture_3.url }}" alt="#"/></a></li>
+                                    <li><a data-target="#pic-4" data-toggle="tab"><img
+                                            src="{{ detail_product.product_picture_4.url }}" alt="#"/></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="similar-box">
+                    <h2>Similar Products</h2>
+
+                    <div class="product_list_wrapper" style="padding: 5px 5px 5px 5px;">
+                        <div class="row">
+                            {% for product in similar_category %}
+                            <div class="col" style="padding: 10px 10px 0px 10px;">
+                                <div class="card" style="width: 20rem;">
+                                    <img src="{{ product.product_picture_main.url }}" width="100%" alt="...">
+                                    <div class="card-body" style="height: 80px">
+                                        <h5 class="card-title">{{ product.product_name }}</h5>
+                                        <p class="card-text"></p>
+                                    </div>
+                                    <div class="Card_button_wrapper" style="padding: 5px 0px 5px 10px">
+                                        <a href="{% url 'products:product_detail' slug=product.slug %}"
+                                           class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                    Specification
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                             data-parent="#accordion">
+                            <div class="card-body">
+                                {{detail_product.product_specification | safe |linebreaks}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                        aria-expanded="false" aria-controls="collapseTwo">
+                                    Accessories
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                {{detail_product.product_accessories | safe |linebreaks}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseThree"
+                                        aria-expanded="false" aria-controls="collapseThree">
+                                    Description
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                             data-parent="#accordion">
+                            <div class="card-body">
+                                {{detail_product.product_other_description | safe |linebreaks}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="optional_accessories" align="center" style="padding: 10px 0px 0px 0px">
+                    <h3>Optional Accessories</h3>
+                    <img style="padding: 10px 0px 0px 0px" src="{{ detail_product.optional_accessories.url }}"
+                         width="65%" alt="...">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="foter_wrapper" style="background-color: Black; color: White; text-align: center;">
+    <p>© all rights are reserved by RGS Corporation Bangladesh.</p>
+    <p>This site is Designed and developed by <a href="www.hstudiobd.com">H Studio</a></p>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--main js-->
+<script src="js/jquery-1.12.4.min.js"></script>
+<!--bootstrap js-->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/select2.full.min.js"></script>
+<script src="js/wow.min.js"></script>
+<!--custom js-->
+<script src="js/custom.js"></script>
+</body>
+</html>
